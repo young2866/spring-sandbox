@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-public class Venue {
+public class Venue extends BaseTimeEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +28,4 @@ public class Venue {
 	@Column(name = "category", nullable = false)
 	private String category;
 
-
-	@CreationTimestamp
-	@Column(name = "created_time")
-	private LocalDateTime created_time = LocalDateTime.now();
-
-	@CreationTimestamp
-	@Column(name = "modified_time")
-	private LocalDateTime modified_time = LocalDateTime.now();
 }

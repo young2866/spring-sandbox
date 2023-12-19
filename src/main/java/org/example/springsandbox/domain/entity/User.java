@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-public class User {
+public class User extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +28,5 @@ public class User {
 
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
-
-	@CreationTimestamp
-	@Column(name = "created_time")
-	private LocalDateTime created_time = LocalDateTime.now();
-
-	@CreationTimestamp
-	@Column(name = "modified_time")
-	private LocalDateTime modified_time = LocalDateTime.now();
-
 
 }
