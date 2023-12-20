@@ -8,8 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Venue extends BaseTimeEntity{
 
 	@Id
@@ -29,8 +34,8 @@ public class Venue extends BaseTimeEntity{
 	@Column(name = "category", nullable = false)
 	private String category;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "venue")
 	private List<Menu> menuList = new ArrayList<>();
-
 
 }
