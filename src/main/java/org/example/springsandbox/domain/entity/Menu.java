@@ -10,8 +10,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Menu extends BaseTimeEntity {
 
 	@Id
@@ -26,9 +31,10 @@ public class Menu extends BaseTimeEntity {
 	private Integer price;
 
 	@ManyToOne
-	@JoinColumn(name = "venue_id")
+	@JoinColumn(name = "venue_id", nullable = false)
 	private Venue venue;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "menu")
 	private List<Review> reviewList = new ArrayList<>();
 }
