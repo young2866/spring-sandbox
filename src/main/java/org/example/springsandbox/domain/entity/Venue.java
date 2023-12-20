@@ -5,8 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Venue extends BaseTimeEntity{
@@ -27,5 +28,9 @@ public class Venue extends BaseTimeEntity{
 
 	@Column(name = "category", nullable = false)
 	private String category;
+
+	@OneToMany(mappedBy = "venue")
+	private List<Menu> menuList = new ArrayList<>();
+
 
 }

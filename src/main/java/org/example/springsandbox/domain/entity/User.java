@@ -5,9 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Version;
-import java.time.LocalDateTime;
-import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends BaseTimeEntity {
@@ -28,5 +28,8 @@ public class User extends BaseTimeEntity {
 
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
+
+	@OneToMany(mappedBy = "user")
+	private List<Review> reviewList = new ArrayList<>();
 
 }
