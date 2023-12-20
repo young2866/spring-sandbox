@@ -8,8 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 
 	@Id
@@ -29,6 +34,7 @@ public class User extends BaseTimeEntity {
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "user")
 	private List<Review> reviewList = new ArrayList<>();
 
