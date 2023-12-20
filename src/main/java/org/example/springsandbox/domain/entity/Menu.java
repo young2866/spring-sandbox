@@ -11,11 +11,13 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class Menu extends BaseTimeEntity {
 
@@ -37,4 +39,5 @@ public class Menu extends BaseTimeEntity {
 	@Builder.Default
 	@OneToMany(mappedBy = "menu")
 	private List<Review> reviewList = new ArrayList<>();
+
 }
