@@ -1,4 +1,4 @@
-package org.example.springsandbox.domain.entity;
+package org.example.springsandbox.Venue.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,13 +11,17 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.springsandbox.domain.entity.BaseTimeEntity;
+import org.example.springsandbox.domain.entity.Menu;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Venue extends BaseTimeEntity{
+@Getter
+public class Venue extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +43,10 @@ public class Venue extends BaseTimeEntity{
 	@Builder.Default
 	@OneToMany(mappedBy = "venue")
 	private List<Menu> menuList = new ArrayList<>();
+
+	public void update(String name, String phoneNumber) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+	}
 
 }
