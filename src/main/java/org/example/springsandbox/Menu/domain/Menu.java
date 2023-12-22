@@ -1,5 +1,6 @@
-package org.example.springsandbox.domain.entity;
+package org.example.springsandbox.Menu.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,13 +14,17 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.springsandbox.Venue.domain.Venue;
+import org.example.springsandbox.domain.entity.BaseTimeEntity;
+import org.example.springsandbox.domain.entity.Review;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Getter
 public class Menu extends BaseTimeEntity {
 
 	@Id
@@ -33,6 +38,7 @@ public class Menu extends BaseTimeEntity {
 	@Column(name = "price", nullable = false)
 	private Integer price;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "venue_id", nullable = false)
 	private Venue venue;
@@ -40,5 +46,11 @@ public class Menu extends BaseTimeEntity {
 	@Builder.Default
 	@OneToMany(mappedBy = "menu")
 	private List<Review> reviewList = new ArrayList<>();
+
+	public void update(String name, Integer price) {
+		this.name = name;
+		this.price = price;
+	}
+
 
 }
