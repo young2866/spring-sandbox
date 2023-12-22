@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserJoinApi {
 	private final UserJoinService userJoinService;
 
-	@PostMapping("/join")
+	@PostMapping("/user/join")
 	public ResponseEntity<Long> userJoin(@RequestBody UserJoinRequestDto userJoinRequestDto) {
 		Long sign = userJoinService.join(userJoinRequestDto);
 		return ResponseEntity.ok(sign);

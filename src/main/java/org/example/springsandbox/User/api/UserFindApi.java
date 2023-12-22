@@ -18,7 +18,7 @@ public class UserFindApi {
 
 	private final UserFindService userFindService;
 
-	@PostMapping("/find")
+	@PostMapping("/user/find")
 	@ResponseBody
 	public ResponseEntity<User> userFind(@RequestBody Map<String, String> request) {
 		String email = request.get("email");
