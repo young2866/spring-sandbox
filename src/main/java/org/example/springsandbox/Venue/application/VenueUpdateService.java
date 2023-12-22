@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
-
 public class VenueUpdateService {
 	private final VenueRepository venueRepository;
 
@@ -27,7 +26,7 @@ public class VenueUpdateService {
 			return venueRepository.save(updateVenue).getId();
 		}else {
 			// ID에 해당하는 사용자를 찾지 못한 경우 404 응답
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venue not found");
 		}
 	}
 }

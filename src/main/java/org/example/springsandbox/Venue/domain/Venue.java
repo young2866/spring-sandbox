@@ -1,5 +1,6 @@
 package org.example.springsandbox.Venue.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.springsandbox.domain.entity.BaseTimeEntity;
-import org.example.springsandbox.domain.entity.Menu;
+import org.example.springsandbox.Menu.domain.Menu;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -40,6 +41,7 @@ public class Venue extends BaseTimeEntity {
 	@Column(name = "category", nullable = false)
 	private String category;
 
+	@JsonManagedReference
 	@Builder.Default
 	@OneToMany(mappedBy = "venue")
 	private List<Menu> menuList = new ArrayList<>();
