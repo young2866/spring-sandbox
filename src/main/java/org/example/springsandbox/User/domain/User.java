@@ -1,5 +1,6 @@
 package org.example.springsandbox.User.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.springsandbox.domain.entity.BaseTimeEntity;
-import org.example.springsandbox.domain.entity.Review;
+import org.example.springsandbox.Review.domain.Review;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -40,6 +41,7 @@ public class User extends BaseTimeEntity {
 	@Column(name = "phone_number", nullable = false, unique = true)
 	private String phoneNumber;
 
+	@JsonManagedReference
 	@Builder.Default
 	@OneToMany(mappedBy = "user")
 	private List<Review> reviewList = new ArrayList<>();

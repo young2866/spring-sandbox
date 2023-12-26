@@ -2,7 +2,7 @@ package org.example.springsandbox.Menu.api;
 
 import lombok.RequiredArgsConstructor;
 import org.example.springsandbox.Menu.application.MenuUpdateService;
-import org.example.springsandbox.Menu.dto.Request.MenuUpdateRequestEntity;
+import org.example.springsandbox.Menu.dto.Request.MenuUpdateRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,9 +17,9 @@ public class MenuUpdateApi {
 
 	@PutMapping("/venue/menu/{id}")
 	public ResponseEntity<Long> update(@PathVariable Long id
-		, @RequestBody MenuUpdateRequestEntity menuUpdateRequestEntity) {
+		, @RequestBody MenuUpdateRequestDto menuUpdateRequestDto) {
 
-		Long update = menuUpdateService.update(id, menuUpdateRequestEntity);
+		Long update = menuUpdateService.update(id, menuUpdateRequestDto);
 		return ResponseEntity.ok(update);
 	}
 }
