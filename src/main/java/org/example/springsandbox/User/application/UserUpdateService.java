@@ -22,6 +22,10 @@ public class UserUpdateService {
 
 		if(user.isPresent()) {
 			User updateUser = user.get();
+
+			if (userRepository.findByNickname(userUpdateRequestDto.getNickname()).isPresent()) {
+				throw new IllegalArgumentException("중복되는 닉네임입니다.");
+			}
 			updateUser.update(userUpdateRequestDto.getPassword()
 				, userUpdateRequestDto.getNickname());
 
