@@ -3,6 +3,8 @@ package org.example.springsandbox.domain.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,5 +22,16 @@ public class BaseTimeEntity {
 
 	@LastModifiedDate
 	private LocalDateTime modified_time;
+
+	@PrePersist
+	public void prePersist() {
+		this.created_time = LocalDateTime.now();
+		this.modified_time = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		this.modified_time = LocalDateTime.now();
+	}
 
 }
