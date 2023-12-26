@@ -3,25 +3,27 @@ package org.example.springsandbox.User;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import jakarta.transaction.Transactional;
 import org.example.springsandbox.User.domain.User;
 import org.example.springsandbox.User.repository.UserRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
-@DataJpaTest
+@SpringBootTest
 @TestPropertySource(locations = "classpath:application.yml")
+@DisplayName("회원가입 테스트")
 public class UserJoinTest {
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@Test
-	@Rollback
-	public void 회원가입_테스트() throws Exception {
+	@Transactional
+	void 정상_테스트() throws Exception {
 		//given
 		String email = "afsueher@naver.com";
 		String nickname = "afsd2e";
@@ -47,8 +49,8 @@ public class UserJoinTest {
 	}
 
 	@Test
-	@Rollback
-	public void 중복이메일_회원가입_테스트() throws Exception {
+	@Transactional
+	void 중복이메일_회원가입_테스트() throws Exception {
 	    //given
 		String email = "dasqfwe@naver.com";
 		User user = User.builder()
@@ -72,8 +74,8 @@ public class UserJoinTest {
 	}
 
 	@Test
-	@Rollback
-	public void 중복닉네임_회원가입_테스트() throws Exception {
+	@Transactional
+	void 중복닉네임_회원가입_테스트() throws Exception {
 		//given
 		String nickname = "hello";
 		User user = User.builder()
@@ -97,7 +99,7 @@ public class UserJoinTest {
 	}
 
 	@Test
-	@Rollback
+	@Transactional
 	public void 중복전화번호_회원가입_테스트() throws Exception {
 		//given
 		String phoneNumber = "01012345678";
