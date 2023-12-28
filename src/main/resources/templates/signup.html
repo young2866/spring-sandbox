@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원 가입</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      text-align: left;
+    }
+
+    input {
+      width: calc(100% - 16px);
+      padding: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .button-group {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .signup-button,
+    .cancel-button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .signup-button {
+      background-color: #45a049;
+      color: #fff;
+      margin-right: 5px;
+    }
+
+    .signup-button:hover {
+      background-color: #45a049;
+    }
+
+    .cancel-button {
+      background-color: #ff6961;
+      color: #fff;
+    }
+
+    .cancel-button:hover {
+      background-color: #cc5751;
+    }
+
+    .button-group .space {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+<form id="signup-form">
+  <h2>회원 가입</h2>
+  <label for="email">이메일</label>
+  <input type="text" id="email" name="email" required>
+  <label for="nickname">닉네임</label>
+  <input type="text" id="nickname" name="nickname" required>
+  <label for="password">비밀번호</label>
+  <input type="password" id="password" name="password" required>
+  <label for="phoneNumber">휴대전화</label>
+  <input type="text" id="phoneNumber" name="phoneNumber" required>
+  <div class="button-group">
+    <a href="/login" class="cancel-button">취소</a>
+    <div class="space"></div>
+    <button class="signup-button" type="button" onclick="submitForm()">회원 가입</button>
+  </div>
+</form>
+
+<script>
+  function submitForm() {
+    var form = document.getElementById('signup-form');
+    var formData = new FormData(form);
+    var jsonObject = {};
+
+    formData.forEach(function(value, key){
+      jsonObject[key] = value;
+    });
+
+    fetch('/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonObject),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+
+      // 가정: 회원가입 성공 메시지가 'success'인 경우 로그인 페이지로 이동
+      if (data.message === 'success') {
+        window.location.href = '/login';
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }
+</script>
+</body>
+</html>

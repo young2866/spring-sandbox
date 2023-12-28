@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.springsandbox.Menu.domain.Menu;
 import org.example.springsandbox.User.domain.User;
-import org.example.springsandbox.domain.entity.BaseTimeEntity;
+import org.example.springsandbox.util.entity.BaseTimeEntity;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
