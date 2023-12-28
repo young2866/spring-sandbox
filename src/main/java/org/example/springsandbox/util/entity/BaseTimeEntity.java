@@ -1,4 +1,4 @@
-package org.example.springsandbox.domain.entity;
+package org.example.springsandbox.util.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

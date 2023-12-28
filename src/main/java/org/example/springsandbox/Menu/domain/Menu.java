@@ -18,7 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.springsandbox.Venue.domain.Venue;
-import org.example.springsandbox.domain.entity.BaseTimeEntity;
+import org.example.springsandbox.util.entity.BaseTimeEntity;
 import org.example.springsandbox.Review.domain.Review;
 
 @Entity
