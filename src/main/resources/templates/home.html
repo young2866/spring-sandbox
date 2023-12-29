@@ -24,6 +24,10 @@
       margin-bottom: 20px; /* 변경된 부분 */
     }
 
+    a, a:visited {
+      color: #4caf50;
+    }
+
     .login-button {
       background-color: #4caf50;
       color: #fff;
@@ -41,13 +45,14 @@
 </head>
 <body>
 <h1>Welcome Home</h1>
+<a th:if="${authenticated}" th:href="@{'/user/' + ${#authentication.principal.nickname}}">
+  <h3 class="overview-normalize" th:text="${#authentication.principal.nickname}"></h3>
+</a>
 <div th:if="${authenticated}">
-<h3 class="overview-normalize">닉네임</h3>
-<p th:text="${#authentication.principal.nickname}"></p>
-<button class="login-button" onclick="location.href='/logout'">Logout</button>
+  <button class="login-button" onclick="location.href='/logout'">Logout</button>
 </div>
 <div th:unless="${authenticated}">
-<button class="login-button" onclick="location.href='/login'" th:unless="${authenticated}">로그인 페이지로 이동</button>
+  <button class="login-button" onclick="location.href='/login'" th:unless="${authenticated}">로그인 페이지로 이동</button>
 </div>
 </body>
 </html>

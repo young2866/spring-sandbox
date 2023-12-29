@@ -19,7 +19,6 @@ public class UserSignUpService {
 
 	public Long signUp(UserJoinRequestDto userJoinRequestDto) {
 		User user = userJoinRequestDto.toEntity();
-
 		user.hashPassword(passwordEncoder);
 
 		return userRepository.save(user).getId();

@@ -1,6 +1,7 @@
 package org.example.springsandbox.User.api;
 
 import lombok.RequiredArgsConstructor;
+import org.example.springsandbox.User.application.UserLoginService;
 import org.example.springsandbox.User.application.UserSignUpService;
 import org.example.springsandbox.User.dto.request.UserJoinRequestDto;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class UserSignUpApi {
 	private final UserSignUpService userSignUpService;
+	private final UserLoginService userLoginService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<Long> userJoin(@RequestBody UserJoinRequestDto userJoinRequestDto) {
-		Long sign = userSignUpService.signUp(userJoinRequestDto);
-		return ResponseEntity.ok(sign);
+	public ResponseEntity<String> userJoin(@RequestBody UserJoinRequestDto userJoinRequestDto) {
+		userSignUpService.signUp(userJoinRequestDto);
+
+		return ResponseEntity.ok("{\"message\": \"success\"}");
 	}
 
 }
