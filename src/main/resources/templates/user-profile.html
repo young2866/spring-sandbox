@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f0f0f0;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .card {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .card-header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .card-body {
+      text-align: left;
+    }
+    .card-text {
+      color: #555;
+    }
+    .btn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div th:if="${user.isPresent()}">
+    <div class="card">
+      <div class="card-header" th:text="${user.get().getNickname()}"></div>
+      <div class="card-body">
+        <p class="card-text">Email: <span th:text="${user.get().getEmail()}"></span></p>
+        <p class="card-text">PhoneNumber: <span th:text="${user.get().getPhoneNumber()}"></span></p>
+        <p class="card-text">Password: ********</p>
+        <button class="btn btn-info" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
+      </div>
+    </div>
+    <a th:href="@{/home}" class="btn btn-primary btn-lg btn-block">Back to Home</a>
+  </div>
+  <div th:unless="${user.isPresent()}">
+    <p>User not found.</p>
+  </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div class="modal" id="changePasswordModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 모달 본문 -->
+      <div class="modal-body">
+        <!-- 비밀번호 변경에 필요한 양식 요소를 추가하세요 -->
+        <form id="changePasswordForm">
+          <div class="form-group">
+            <label for="currentPassword">현재 비밀번호:</label>
+            <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+          </div>
+          <div class="form-group">
+            <label for="newPassword">새로운 비밀번호:</label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">비밀번호 확인:</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+            <small class="text-danger" id="passwordMismatch" style="display:none;">비밀번호가 일치하지 않습니다.</small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary" onclick="submitChangePasswordForm()">변경 저장</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 추가된 부분: 비밀번호 변경 폼 제출을 위한 스크립트 -->
+<script th:inline="javascript">
+  var currentUserId = [[${user.get().getId()}]]
+</script>
+<script>
+  function submitChangePasswordForm() {
+    // 현재 비밀번호, 새로운 비밀번호, 확인용 비밀번호 가져오기
+    var currentPassword = document.getElementById('currentPassword').value;
+    var newPassword = document.getElementById('newPassword').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+
+    // 비밀번호 일치 여부 검사
+    if (newPassword !== confirmPassword) {
+      document.getElementById('passwordMismatch').style.display = 'block';
+      return;
+    } else {
+      document.getElementById('passwordMismatch').style.display = 'none';
+    }
+
+    // 비밀번호 변경 요청을 서버로 전송하는 부분
+    var formData = {
+      currentPassword: currentPassword,
+      newPassword: newPassword
+    };
+
+    fetch('/user/'+currentUserId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+
+      // 가정: 비밀번호 변경 성공 메시지가 'success'인 경우 모달 닫기
+      if (data.message === 'Password updated successfully') {
+        $('#changePasswordModal').modal('hide');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }
+</script>
+
+</body>
+</html>

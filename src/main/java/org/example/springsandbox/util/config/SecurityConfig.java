@@ -45,7 +45,13 @@ public class SecurityConfig {
 				.defaultSuccessUrl("/home")
 				.failureForwardUrl("/login")
 				.permitAll()
-			);
+			)
+			.logout(logout -> logout
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/home")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID"));
+
 		return http.build();
 	}
 

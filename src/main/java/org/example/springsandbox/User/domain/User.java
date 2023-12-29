@@ -62,9 +62,8 @@ public class User extends BaseTimeEntity implements UserDetails {
 		return passwordEncoder.matches(plainPassword, this.password);
 	}
 
-	public void update(String password, String nickname) {
+	public void update(String password) {
 		this.password = password;
-		this.nickname = nickname;
 	}
 
 	@Override
